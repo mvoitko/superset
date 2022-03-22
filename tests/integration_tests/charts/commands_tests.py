@@ -142,9 +142,9 @@ class TestImportChartsCommand(SupersetTestCase):
         command = ImportChartsCommand(contents)
         command.run()
 
-        chart: Slice = db.session.query(Slice).filter_by(
-            uuid=chart_config["uuid"]
-        ).one()
+        chart: Slice = (
+            db.session.query(Slice).filter_by(uuid=chart_config["uuid"]).one()
+        )
         dataset = chart.datasource
         assert json.loads(chart.params) == {
             "color_picker": {"a": 1, "b": 135, "g": 122, "r": 0},

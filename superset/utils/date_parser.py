@@ -107,7 +107,8 @@ def dttm_from_timetuple(date_: struct_time) -> datetime:
 
 
 def parse_human_timedelta(
-    human_readable: Optional[str], source_time: Optional[datetime] = None,
+    human_readable: Optional[str],
+    source_time: Optional[datetime] = None,
 ) -> timedelta:
     """
     Returns ``datetime.timedelta`` from natural language time deltas
@@ -135,7 +136,8 @@ def parse_past_timedelta(
     or datetime.timedelta(365).
     """
     return -parse_human_timedelta(
-        delta_str if delta_str.startswith("-") else f"-{delta_str}", source_time,
+        delta_str if delta_str.startswith("-") else f"-{delta_str}",
+        source_time,
     )
 
 

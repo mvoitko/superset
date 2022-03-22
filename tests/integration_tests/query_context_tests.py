@@ -396,12 +396,16 @@ class TestQueryContext(SupersetTestCase):
             else:
                 # Should reference the adhoc metric by alias when possible
                 assert re.search(
-                    r'ORDER BY [`"\[]?num_girls[`"\]]? DESC', sql_text, re.IGNORECASE,
+                    r'ORDER BY [`"\[]?num_girls[`"\]]? DESC',
+                    sql_text,
+                    re.IGNORECASE,
                 )
 
             # ORDER BY only columns should always be expressions
             assert re.search(
-                r'AVG\([`"\[]?num_boys[`"\]]?\) DESC', sql_text, re.IGNORECASE,
+                r'AVG\([`"\[]?num_boys[`"\]]?\) DESC',
+                sql_text,
+                re.IGNORECASE,
             )
             assert re.search(
                 r"MAX\(CASE.*END\) ASC", sql_text, re.IGNORECASE | re.DOTALL

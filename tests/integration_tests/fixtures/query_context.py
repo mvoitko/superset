@@ -51,7 +51,9 @@ query_birth_names = {
 QUERY_OBJECTS: Dict[str, Dict[str, object]] = {
     "birth_names": query_birth_names,
     # `:suffix` are overrides only
-    "birth_names:include_time": {"groupby": [DTTM_ALIAS, "name"],},
+    "birth_names:include_time": {
+        "groupby": [DTTM_ALIAS, "name"],
+    },
     "birth_names:orderby_dup_alias": {
         "metrics": [
             {
@@ -99,7 +101,9 @@ QUERY_OBJECTS: Dict[str, Dict[str, object]] = {
             ],
         ],
     },
-    "birth_names:only_orderby_has_metric": {"metrics": [],},
+    "birth_names:only_orderby_has_metric": {
+        "metrics": [],
+    },
 }
 
 ANNOTATION_LAYERS = {
@@ -185,11 +189,19 @@ POSTPROCESSING_OPERATIONS = {
                         "column": "sum__num",
                         "options": {"q": 25},
                     },
-                    "median": {"operator": "median", "column": "sum__num",},
+                    "median": {
+                        "operator": "median",
+                        "column": "sum__num",
+                    },
                 },
             },
         },
-        {"operation": "sort", "options": {"columns": {"q1": False, "gender": True},},},
+        {
+            "operation": "sort",
+            "options": {
+                "columns": {"q1": False, "gender": True},
+            },
+        },
     ]
 }
 
@@ -224,7 +236,8 @@ def _get_postprocessing_operation(query_name: str) -> List[Dict[str, Any]]:
 
 
 def get_query_context(
-    query_name: str, add_postprocessing_operations: bool = False,
+    query_name: str,
+    add_postprocessing_operations: bool = False,
 ) -> Dict[str, Any]:
     """
     Create a request payload for retrieving a QueryContext object via the

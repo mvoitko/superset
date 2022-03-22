@@ -89,7 +89,7 @@ SYNTAX_ERROR_REGEX = re.compile('syntax error at or near "(?P<syntax_error>.*?)"
 
 
 class PostgresBaseEngineSpec(BaseEngineSpec):
-    """ Abstract class for Postgres 'like' databases """
+    """Abstract class for Postgres 'like' databases"""
 
     engine = ""
     engine_name = "PostgreSQL"
@@ -202,8 +202,16 @@ class PostgresEngineSpec(PostgresBaseEngineSpec, BasicParametersMixin):
             lambda match: ARRAY(int(match[2])) if match[2] else String(),
             utils.GenericDataType.STRING,
         ),
-        (re.compile(r"^json.*", re.IGNORECASE), JSON(), utils.GenericDataType.STRING,),
-        (re.compile(r"^enum.*", re.IGNORECASE), ENUM(), utils.GenericDataType.STRING,),
+        (
+            re.compile(r"^json.*", re.IGNORECASE),
+            JSON(),
+            utils.GenericDataType.STRING,
+        ),
+        (
+            re.compile(r"^enum.*", re.IGNORECASE),
+            ENUM(),
+            utils.GenericDataType.STRING,
+        ),
     )
 
     @classmethod

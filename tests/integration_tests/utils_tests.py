@@ -915,7 +915,11 @@ class TestUtils(SupersetTestCase):
         }
         merge_extra_form_data(form_data)
         self.assertEqual(
-            form_data, {"time_range": "Last 10 days", "adhoc_filters": [],},
+            form_data,
+            {
+                "time_range": "Last 10 days",
+                "adhoc_filters": [],
+            },
         )
 
     def test_merge_extra_filters_with_extras(self):

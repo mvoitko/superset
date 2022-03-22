@@ -69,7 +69,8 @@ ma_plugin = MarshmallowPlugin()
 
 class BigQueryParametersSchema(Schema):
     credentials_info = EncryptedField(
-        required=False, description="Contents of BigQuery JSON credentials.",
+        required=False,
+        description="Contents of BigQuery JSON credentials.",
     )
     query = fields.Dict(required=False)
 

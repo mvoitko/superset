@@ -153,7 +153,10 @@ class QueryContext:
                 # will stay as strings if conversion fails
                 df[col] = df[col].infer_objects()
 
-    def get_data(self, df: pd.DataFrame,) -> Union[str, List[Dict[str, Any]]]:
+    def get_data(
+        self,
+        df: pd.DataFrame,
+    ) -> Union[str, List[Dict[str, Any]]]:
         if self.result_format == ChartDataResultFormat.CSV:
             include_index = not isinstance(df.index, pd.RangeIndex)
             result = csv.df_to_escaped_csv(
@@ -164,7 +167,9 @@ class QueryContext:
         return df.to_dict(orient="records")
 
     def get_payload(
-        self, cache_query_context: Optional[bool] = False, force_cached: bool = False,
+        self,
+        cache_query_context: Optional[bool] = False,
+        force_cached: bool = False,
     ) -> Dict[str, Any]:
         """Returns the query results with both metadata and data"""
 
@@ -309,7 +314,9 @@ class QueryContext:
         return annotation_data
 
     def get_df_payload(  # pylint: disable=too-many-statements,too-many-locals
-        self, query_obj: QueryObject, force_cached: Optional[bool] = False,
+        self,
+        query_obj: QueryObject,
+        force_cached: Optional[bool] = False,
     ) -> Dict[str, Any]:
         """Handles caching around the df payload retrieval"""
         cache_key = self.query_cache_key(query_obj)

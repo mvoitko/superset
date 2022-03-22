@@ -44,7 +44,9 @@ if TYPE_CHECKING:
 
 class WebDriverProxy:
     def __init__(
-        self, driver_type: str, window: Optional[WindowSize] = None,
+        self,
+        driver_type: str,
+        window: Optional[WindowSize] = None,
     ):
         self._driver_type = driver_type
         self._window: WindowSize = window or (800, 600)
@@ -94,7 +96,10 @@ class WebDriverProxy:
             pass
 
     def get_screenshot(
-        self, url: str, element_name: str, user: "User",
+        self,
+        url: str,
+        element_name: str,
+        user: "User",
     ) -> Optional[bytes]:
 
         driver = self.auth(user)

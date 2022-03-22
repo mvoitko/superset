@@ -21,13 +21,13 @@ import re
 from collections import OrderedDict
 from copy import deepcopy
 from datetime import datetime, timedelta
-from distutils.version import LooseVersion
 from multiprocessing.pool import ThreadPool
 from typing import Any, cast, Dict, Iterable, List, Optional, Set, Tuple, Union
 
 import pandas as pd
 import sqlalchemy as sa
 from dateutil.parser import parse as dparse
+from distutils.version import LooseVersion
 from flask import escape, Markup
 from flask_appbuilder import Model
 from flask_appbuilder.models.decorators import renders
@@ -116,7 +116,6 @@ try:
         def __init__(self, name: str, post_aggregator: Dict[str, Any]) -> None:
             self.name = name
             self.post_aggregator = post_aggregator
-
 
 except NameError:
     pass

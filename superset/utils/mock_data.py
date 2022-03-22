@@ -108,7 +108,9 @@ def get_type_generator(sqltype: sqlalchemy.sql.sqltypes) -> Callable[[], Any]:
 
     if isinstance(sqltype, sqlalchemy.sql.sqltypes.TIME):
         return lambda: time(
-            random.randrange(24), random.randrange(60), random.randrange(60),
+            random.randrange(24),
+            random.randrange(60),
+            random.randrange(60),
         )
 
     if isinstance(

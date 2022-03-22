@@ -194,7 +194,7 @@ def load_examples(
     only_metadata: bool = False,
     force: bool = False,
 ) -> None:
-    """Loads a set of Slices and Dashboards and a supporting dataset """
+    """Loads a set of Slices and Dashboards and a supporting dataset"""
     load_examples_run(load_test_data, load_big_data, only_metadata, force)
 
 
@@ -210,7 +210,7 @@ def load_examples(
     help="Create the DB if it doesn't exist",
 )
 def set_database_uri(database_name: str, uri: str, skip_create: bool) -> None:
-    """Updates a database connection URI """
+    """Updates a database connection URI"""
     utils.get_or_create_db(database_name, uri, not skip_create)
 
 
@@ -250,7 +250,9 @@ if feature_flags.get("VERSIONED_EXPORT"):
     @superset.command()
     @with_appcontext
     @click.option(
-        "--dashboard-file", "-f", help="Specify the the file to export to",
+        "--dashboard-file",
+        "-f",
+        help="Specify the the file to export to",
     )
     def export_dashboards(dashboard_file: Optional[str] = None) -> None:
         """Export dashboards to ZIP file"""
@@ -281,7 +283,9 @@ if feature_flags.get("VERSIONED_EXPORT"):
     @superset.command()
     @with_appcontext
     @click.option(
-        "--datasource-file", "-f", help="Specify the the file to export to",
+        "--datasource-file",
+        "-f",
+        help="Specify the the file to export to",
     )
     def export_datasources(datasource_file: Optional[str] = None) -> None:
         """Export datasources to ZIP file"""
@@ -309,7 +313,9 @@ if feature_flags.get("VERSIONED_EXPORT"):
     @superset.command()
     @with_appcontext
     @click.option(
-        "--path", "-p", help="Path to a single ZIP file",
+        "--path",
+        "-p",
+        help="Path to a single ZIP file",
     )
     @click.option(
         "--username",
@@ -342,7 +348,9 @@ if feature_flags.get("VERSIONED_EXPORT"):
     @superset.command()
     @with_appcontext
     @click.option(
-        "--path", "-p", help="Path to a single ZIP file",
+        "--path",
+        "-p",
+        help="Path to a single ZIP file",
     )
     def import_datasources(path: str) -> None:
         """Import datasources from ZIP file"""
@@ -363,7 +371,6 @@ if feature_flags.get("VERSIONED_EXPORT"):
                 "There was an error when importing the dataset(s), please check the "
                 "exception traceback in the log"
             )
-
 
 else:
 
@@ -801,10 +808,11 @@ def alert() -> None:
 @with_appcontext
 def update_api_docs() -> None:
     """Regenerate the openapi.json file in docs"""
+    from os import path
+
     from apispec import APISpec
     from apispec.ext.marshmallow import MarshmallowPlugin
     from flask_appbuilder.api import BaseApi
-    from os import path
 
     superset_dir = path.abspath(path.dirname(__file__))
     openapi_json = path.join(

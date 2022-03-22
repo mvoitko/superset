@@ -59,7 +59,9 @@ def test_scheduler_celery_timeout(execute_mock):
     with app.app_context():
 
         report_schedule = insert_report_schedule(
-            type=ReportScheduleType.ALERT, name=f"report", crontab=f"0 9 * * *",
+            type=ReportScheduleType.ALERT,
+            name=f"report",
+            crontab=f"0 9 * * *",
         )
 
         with freeze_time("2020-01-01T09:00:00Z"):
@@ -78,7 +80,9 @@ def test_scheduler_celery_no_timeout(execute_mock):
     with app.app_context():
         app.config["ALERT_REPORTS_WORKING_TIME_OUT_KILL"] = False
         report_schedule = insert_report_schedule(
-            type=ReportScheduleType.ALERT, name=f"report", crontab=f"0 9 * * *",
+            type=ReportScheduleType.ALERT,
+            name=f"report",
+            crontab=f"0 9 * * *",
         )
 
         with freeze_time("2020-01-01T09:00:00Z"):

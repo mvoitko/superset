@@ -198,13 +198,21 @@ class BaseEngineSpec:  # pylint: disable=too-many-public-methods
             types.Numeric(),
             GenericDataType.NUMERIC,
         ),
-        (re.compile(r"^float", re.IGNORECASE), types.Float(), GenericDataType.NUMERIC,),
+        (
+            re.compile(r"^float", re.IGNORECASE),
+            types.Float(),
+            GenericDataType.NUMERIC,
+        ),
         (
             re.compile(r"^double", re.IGNORECASE),
             types.Float(),
             GenericDataType.NUMERIC,
         ),
-        (re.compile(r"^real", re.IGNORECASE), types.REAL, GenericDataType.NUMERIC,),
+        (
+            re.compile(r"^real", re.IGNORECASE),
+            types.REAL,
+            GenericDataType.NUMERIC,
+        ),
         (
             re.compile(r"^smallserial", re.IGNORECASE),
             types.SmallInteger(),
@@ -245,13 +253,21 @@ class BaseEngineSpec:  # pylint: disable=too-many-public-methods
             String(),
             utils.GenericDataType.STRING,
         ),
-        (re.compile(r"^LONG", re.IGNORECASE), types.Float(), GenericDataType.NUMERIC,),
+        (
+            re.compile(r"^LONG", re.IGNORECASE),
+            types.Float(),
+            GenericDataType.NUMERIC,
+        ),
         (
             re.compile(r"^datetime", re.IGNORECASE),
             types.DateTime(),
             GenericDataType.TEMPORAL,
         ),
-        (re.compile(r"^date", re.IGNORECASE), types.Date(), GenericDataType.TEMPORAL,),
+        (
+            re.compile(r"^date", re.IGNORECASE),
+            types.Date(),
+            GenericDataType.TEMPORAL,
+        ),
         (
             re.compile(r"^timestamp", re.IGNORECASE),
             types.TIMESTAMP(),
@@ -262,7 +278,11 @@ class BaseEngineSpec:  # pylint: disable=too-many-public-methods
             types.Interval(),
             GenericDataType.TEMPORAL,
         ),
-        (re.compile(r"^time", re.IGNORECASE), types.Time(), GenericDataType.TEMPORAL,),
+        (
+            re.compile(r"^time", re.IGNORECASE),
+            types.Time(),
+            GenericDataType.TEMPORAL,
+        ),
         (
             re.compile(r"^bool.*", re.IGNORECASE),
             types.Boolean(),
@@ -967,7 +987,11 @@ class BaseEngineSpec:  # pylint: disable=too-many-public-methods
         return sql
 
     @classmethod
-    def estimate_statement_cost(cls, statement: str, cursor: Any,) -> Dict[str, Any]:
+    def estimate_statement_cost(
+        cls,
+        statement: str,
+        cursor: Any,
+    ) -> Dict[str, Any]:
         """
         Generate a SQL query that estimates the cost of a given statement.
 
@@ -1055,7 +1079,10 @@ class BaseEngineSpec:  # pylint: disable=too-many-public-methods
 
     @classmethod
     def update_impersonation_config(
-        cls, connect_args: Dict[str, Any], uri: str, username: Optional[str],
+        cls,
+        connect_args: Dict[str, Any],
+        uri: str,
+        username: Optional[str],
     ) -> None:
         """
         Update a configuration dictionary
@@ -1314,7 +1341,7 @@ class BasicParametersSchema(Schema):
     port = fields.Integer(
         required=True,
         description=__("Database port"),
-        validate=Range(min=0, max=2 ** 16, max_inclusive=False),
+        validate=Range(min=0, max=2**16, max_inclusive=False),
     )
     database = fields.String(required=True, description=__("Database name"))
     query = fields.Dict(
@@ -1459,7 +1486,7 @@ class BasicParametersMixin:
                     extra={"invalid": ["port"]},
                 ),
             )
-        if not (isinstance(port, int) and 0 <= port < 2 ** 16):
+        if not (isinstance(port, int) and 0 <= port < 2**16):
             errors.append(
                 SupersetError(
                     message=(

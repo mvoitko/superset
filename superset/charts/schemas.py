@@ -236,7 +236,8 @@ class ChartCacheScreenshotResponseSchema(Schema):
 
 class ChartDataColumnSchema(Schema):
     column_name = fields.String(
-        description="The name of the target column", example="mycol",
+        description="The name of the target column",
+        example="mycol",
     )
     type = fields.String(description="Type of target column", example="BIGINT")
 
@@ -320,7 +321,8 @@ class ChartDataAggregateOptionsSchema(ChartDataPostProcessingOperationOptionsSch
     groupby = (
         fields.List(
             fields.String(
-                allow_none=False, description="Columns by which to group by",
+                allow_none=False,
+                description="Columns by which to group by",
             ),
             minLength=1,
             required=True,
@@ -375,7 +377,9 @@ class ChartDataRollingOptionsSchema(ChartDataPostProcessingOperationOptionsSchem
         example="percentile",
     )
     window = fields.Integer(
-        description="Size of the rolling window in days.", required=True, example=7,
+        description="Size of the rolling window in days.",
+        required=True,
+        example=7,
     )
     rolling_type_options = fields.Dict(
         desctiption="Optional options to pass to rolling method. Needed for "
@@ -542,7 +546,9 @@ class ChartDataBoxplotOptionsSchema(ChartDataPostProcessingOperationOptionsSchem
     """
 
     groupby = fields.List(
-        fields.String(description="Columns by which to group the query.",),
+        fields.String(
+            description="Columns by which to group the query.",
+        ),
         allow_none=True,
     )
 
@@ -618,7 +624,8 @@ class ChartDataPivotOptionsSchema(ChartDataPostProcessingOperationOptionsSchema)
     )
     columns = fields.List(
         fields.String(
-            allow_none=False, description="Columns to group by on the table columns",
+            allow_none=False,
+            description="Columns to group by on the table columns",
         ),
     )
     metric_fill_value = fields.Number(
@@ -648,13 +655,16 @@ class ChartDataGeohashDecodeOptionsSchema(
     """
 
     geohash = fields.String(
-        description="Name of source column containing geohash string", required=True,
+        description="Name of source column containing geohash string",
+        required=True,
     )
     latitude = fields.String(
-        description="Name of target column for decoded latitude", required=True,
+        description="Name of target column for decoded latitude",
+        required=True,
     )
     longitude = fields.String(
-        description="Name of target column for decoded longitude", required=True,
+        description="Name of target column for decoded longitude",
+        required=True,
     )
 
 
@@ -666,13 +676,16 @@ class ChartDataGeohashEncodeOptionsSchema(
     """
 
     latitude = fields.String(
-        description="Name of source latitude column", required=True,
+        description="Name of source latitude column",
+        required=True,
     )
     longitude = fields.String(
-        description="Name of source longitude column", required=True,
+        description="Name of source longitude column",
+        required=True,
     )
     geohash = fields.String(
-        description="Name of target column for encoded geohash string", required=True,
+        description="Name of target column for encoded geohash string",
+        required=True,
     )
 
 
@@ -688,10 +701,12 @@ class ChartDataGeodeticParseOptionsSchema(
         required=True,
     )
     latitude = fields.String(
-        description="Name of target column for decoded latitude", required=True,
+        description="Name of target column for decoded latitude",
+        required=True,
     )
     longitude = fields.String(
-        description="Name of target column for decoded longitude", required=True,
+        description="Name of target column for decoded longitude",
+        required=True,
     )
     altitude = fields.String(
         description="Name of target column for decoded altitude. If omitted, "
@@ -734,7 +749,10 @@ class ChartDataPostProcessingOperationSchema(Schema):
                     "column": "age",
                     "options": {"q": 0.25},
                 },
-                "age_mean": {"operator": "mean", "column": "age",},
+                "age_mean": {
+                    "operator": "mean",
+                    "column": "age",
+                },
             },
         },
     )
@@ -809,7 +827,10 @@ class AnnotationLayerSchema(Schema):
         description="Type of annotation layer",
         validate=validate.OneOf(choices=[ann.value for ann in AnnotationType]),
     )
-    color = fields.String(description="Layer color", allow_none=True,)
+    color = fields.String(
+        description="Layer color",
+        allow_none=True,
+    )
     descriptionColumns = fields.List(
         fields.String(),
         description="Columns to use as the description. If none are provided, "
@@ -852,16 +873,34 @@ class AnnotationLayerSchema(Schema):
     )
     sourceType = fields.String(
         description="Type of source for annotation data",
-        validate=validate.OneOf(choices=("", "line", "NATIVE", "table",)),
+        validate=validate.OneOf(
+            choices=(
+                "",
+                "line",
+                "NATIVE",
+                "table",
+            )
+        ),
     )
     style = fields.String(
         description="Line style. Only applies to time-series annotations",
-        validate=validate.OneOf(choices=("dashed", "dotted", "solid", "longDashed",)),
+        validate=validate.OneOf(
+            choices=(
+                "dashed",
+                "dotted",
+                "solid",
+                "longDashed",
+            )
+        ),
     )
     timeColumn = fields.String(
-        description="Column with event date or interval start date", allow_none=True,
+        description="Column with event date or interval start date",
+        allow_none=True,
     )
-    titleColumn = fields.String(description="Column with title", allow_none=True,)
+    titleColumn = fields.String(
+        description="Column with title",
+        allow_none=True,
+    )
     width = fields.Float(
         description="Width of annotation line",
         validate=[
@@ -881,7 +920,10 @@ class AnnotationLayerSchema(Schema):
 
 class ChartDataDatasourceSchema(Schema):
     description = "Chart datasource"
-    id = fields.Integer(description="Datasource id", required=True,)
+    id = fields.Integer(
+        description="Datasource id",
+        required=True,
+    )
     type = fields.String(
         description="Datasource type",
         validate=validate.OneOf(choices=("druid", "table")),
@@ -924,7 +966,9 @@ class ChartDataQueryObjectSchema(Schema):
         deprecated=True,
     )
     groupby = fields.List(
-        fields.String(description="Columns by which to group the query.",),
+        fields.String(
+            description="Columns by which to group the query.",
+        ),
         allow_none=True,
     )
     metrics = fields.List(
@@ -970,14 +1014,16 @@ class ChartDataQueryObjectSchema(Schema):
         allow_none=True,
     )
     is_timeseries = fields.Boolean(
-        description="Is the `query_object` a timeseries.", allow_none=True,
+        description="Is the `query_object` a timeseries.",
+        allow_none=True,
     )
     timeseries_limit = fields.Integer(
         description="Maximum row count for timeseries queries. Default: `0`",
         allow_none=True,
     )
     timeseries_limit_metric = fields.Raw(
-        description="Metric used to limit timeseries queries by.", allow_none=True,
+        description="Metric used to limit timeseries queries by.",
+        allow_none=True,
     )
     row_limit = fields.Integer(
         description='Maximum row count (0=disabled). Default: `config["ROW_LIMIT"]`',
@@ -994,7 +1040,8 @@ class ChartDataQueryObjectSchema(Schema):
         ],
     )
     order_desc = fields.Boolean(
-        description="Reverse order. Default: `false`", allow_none=True,
+        description="Reverse order. Default: `false`",
+        allow_none=True,
     )
     extras = fields.Nested(
         ChartDataExtrasSchema,
@@ -1090,7 +1137,9 @@ class AnnotationDataSchema(Schema):
         required=True,
     )
     records = fields.List(
-        fields.Dict(keys=fields.String(),),
+        fields.Dict(
+            keys=fields.String(),
+        ),
         description="records mapping the column name to it's value",
         required=True,
     )
@@ -1106,10 +1155,14 @@ class ChartDataResponseResult(Schema):
         allow_none=True,
     )
     cache_key = fields.String(
-        description="Unique cache key for query object", required=True, allow_none=True,
+        description="Unique cache key for query object",
+        required=True,
+        allow_none=True,
     )
     cached_dttm = fields.String(
-        description="Cache timestamp", required=True, allow_none=True,
+        description="Cache timestamp",
+        required=True,
+        allow_none=True,
     )
     cache_timeout = fields.Integer(
         description="Cache timeout in following order: custom timeout, datasource "
@@ -1117,12 +1170,19 @@ class ChartDataResponseResult(Schema):
         required=True,
         allow_none=True,
     )
-    error = fields.String(description="Error", allow_none=True,)
+    error = fields.String(
+        description="Error",
+        allow_none=True,
+    )
     is_cached = fields.Boolean(
-        description="Is the result cached", required=True, allow_none=None,
+        description="Is the result cached",
+        required=True,
+        allow_none=None,
     )
     query = fields.String(
-        description="The executed query statement", required=True, allow_none=False,
+        description="The executed query statement",
+        required=True,
+        allow_none=False,
     )
     status = fields.String(
         description="Status of the query",
@@ -1140,10 +1200,12 @@ class ChartDataResponseResult(Schema):
         allow_none=False,
     )
     stacktrace = fields.String(
-        desciption="Stacktrace if there was an error", allow_none=True,
+        desciption="Stacktrace if there was an error",
+        allow_none=True,
     )
     rowcount = fields.Integer(
-        description="Amount of rows in result set", allow_none=False,
+        description="Amount of rows in result set",
+        allow_none=False,
     )
     data = fields.List(fields.Dict(), description="A list with results")
     applied_filters = fields.List(
@@ -1163,13 +1225,24 @@ class ChartDataResponseSchema(Schema):
 
 class ChartDataAsyncResponseSchema(Schema):
     channel_id = fields.String(
-        description="Unique session async channel ID", allow_none=False,
+        description="Unique session async channel ID",
+        allow_none=False,
     )
-    job_id = fields.String(description="Unique async job ID", allow_none=False,)
-    user_id = fields.String(description="Requesting user ID", allow_none=True,)
-    status = fields.String(description="Status value for async job", allow_none=False,)
+    job_id = fields.String(
+        description="Unique async job ID",
+        allow_none=False,
+    )
+    user_id = fields.String(
+        description="Requesting user ID",
+        allow_none=True,
+    )
+    status = fields.String(
+        description="Status value for async job",
+        allow_none=False,
+    )
     result_url = fields.String(
-        description="Unique result URL for fetching async query data", allow_none=False,
+        description="Unique result URL for fetching async query data",
+        allow_none=False,
     )
 
 

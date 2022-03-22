@@ -56,7 +56,8 @@ class ValidateDatabaseParametersCommand(BaseCommand):
             raise InvalidEngineError(
                 SupersetError(
                     message=__(
-                        'Engine "%(engine)s" is not a valid engine.', engine=engine,
+                        'Engine "%(engine)s" is not a valid engine.',
+                        engine=engine,
                     ),
                     error_type=SupersetErrorType.GENERIC_DB_ENGINE_ERROR,
                     level=ErrorLevel.ERROR,

@@ -320,7 +320,11 @@ class TestDashboardApi(SupersetTestCase, ApiOwnersTestCaseMixin, InsertChartMixi
             "changed_by_name": "",
             "changed_by_url": "",
             "charts": [],
-            "created_by": {"id": 1, "first_name": "admin", "last_name": "user",},
+            "created_by": {
+                "id": 1,
+                "first_name": "admin",
+                "last_name": "user",
+            },
             "id": dashboard.id,
             "css": "",
             "dashboard_title": "title",
@@ -1095,7 +1099,12 @@ class TestDashboardApi(SupersetTestCase, ApiOwnersTestCaseMixin, InsertChartMixi
         slices.append(db.session.query(Slice).filter_by(slice_name="Trends").first())
         slices.append(db.session.query(Slice).filter_by(slice_name="Boys").first())
 
-        dashboard = self.insert_dashboard("title1", "slug1", [admin.id], slices=slices,)
+        dashboard = self.insert_dashboard(
+            "title1",
+            "slug1",
+            [admin.id],
+            slices=slices,
+        )
         self.login(username="admin")
         uri = f"api/v1/dashboard/{dashboard.id}"
         dashboard_data = {"owners": [user_alpha1.id, user_alpha2.id]}

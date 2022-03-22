@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 """Utility functions used across Superset"""
+import _thread  # pylint: disable=C0411
 import collections
 import decimal
 import errno
@@ -32,7 +33,6 @@ import traceback
 import uuid
 import zlib
 from datetime import date, datetime, time, timedelta
-from distutils.util import strtobool
 from email.mime.application import MIMEApplication
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
@@ -69,6 +69,7 @@ import sqlalchemy as sa
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.backends.openssl.x509 import _Certificate
+from distutils.util import strtobool
 from flask import current_app, flash, g, Markup, render_template, request
 from flask_appbuilder import SQLA
 from flask_appbuilder.security.sqla.models import Role, User
@@ -84,7 +85,6 @@ from sqlalchemy.sql.type_api import Variant
 from sqlalchemy.types import TEXT, TypeDecorator, TypeEngine
 from typing_extensions import TypedDict
 
-import _thread  # pylint: disable=C0411
 from superset.constants import (
     EXTRA_FORM_DATA_APPEND_KEYS,
     EXTRA_FORM_DATA_OVERRIDE_EXTRA_KEYS,
@@ -352,7 +352,6 @@ try:
                     "value": args["value"],
                 }
             }
-
 
 except NameError:
     pass
@@ -1571,7 +1570,8 @@ def is_test() -> bool:
 
 
 def get_time_filter_status(  # pylint: disable=too-many-branches
-    datasource: "BaseDatasource", applied_time_extras: Dict[str, str],
+    datasource: "BaseDatasource",
+    applied_time_extras: Dict[str, str],
 ) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
     temporal_columns = {col.column_name for col in datasource.columns if col.is_dttm}
     applied: List[Dict[str, str]] = []

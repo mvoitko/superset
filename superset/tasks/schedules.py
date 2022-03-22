@@ -385,14 +385,18 @@ def _get_slice_screenshot(slice_id: int, session: Session) -> ScreenshotData:
     chart_url = get_url_path("Superset.slice", slice_id=slice_obj.id, standalone="true")
     screenshot = ChartScreenshot(chart_url, slice_obj.digest)
     image_url = _get_url_path(
-        "Superset.slice", user_friendly=True, slice_id=slice_obj.id,
+        "Superset.slice",
+        user_friendly=True,
+        slice_id=slice_obj.id,
     )
 
     user = security_manager.get_user_by_username(
         current_app.config["THUMBNAIL_SELENIUM_USER"], session=session
     )
     image_data = screenshot.compute_and_cache(
-        user=user, cache=thumbnail_cache, force=True,
+        user=user,
+        cache=thumbnail_cache,
+        force=True,
     )
 
     session.commit()
@@ -540,7 +544,10 @@ def schedule_email_report(
     bind=True,
     # TODO: find cause of https://github.com/apache/superset/issues/10530
     # and remove retry
-    autoretry_for=(NoSuchColumnError, ResourceClosedError,),
+    autoretry_for=(
+        NoSuchColumnError,
+        ResourceClosedError,
+    ),
     retry_kwargs={"max_retries": 1},
     retry_backoff=True,
 )
@@ -678,7 +685,10 @@ def deliver_slack_alert(alert_content: AlertContent, slack_channel: str) -> None
         )
 
     deliver_slack_msg(
-        slack_channel, subject, slack_message, image,
+        slack_channel,
+        subject,
+        slack_message,
+        image,
     )
 
 
@@ -824,7 +834,7 @@ def get_scheduler_action(report_type: str) -> Optional[Callable[..., Any]]:
 
 @celery_app.task(name="email_reports.schedule_hourly")
 def schedule_hourly() -> None:
-    """ Celery beat job meant to be invoked hourly """
+    """Celery beat job meant to be invoked hourly"""
     if not config["ENABLE_SCHEDULED_EMAIL_REPORTS"]:
         logger.info("Scheduled email reports not enabled in config")
         return
@@ -842,7 +852,7 @@ def schedule_hourly() -> None:
 
 @celery_app.task(name="alerts.schedule_check")
 def schedule_alerts() -> None:
-    """ Celery beat job meant to be invoked every minute to check alerts """
+    """Celery beat job meant to be invoked every minute to check alerts"""
     resolution = 0
     now = datetime.utcnow()
     start_at = now - timedelta(

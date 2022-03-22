@@ -134,7 +134,7 @@ class BaseParameters(object):
 @click.option("--version", envvar="SUPERSET_VERSION")
 @click.option("--version_rc", envvar="SUPERSET_VERSION_RC")
 def cli(ctx, apache_email, apache_username, apache_password, version, version_rc):
-    """ Welcome to releasing send email CLI interface!  """
+    """Welcome to releasing send email CLI interface!"""
     base_parameters = BaseParameters(
         apache_email, apache_username, apache_password, version, version_rc
     )

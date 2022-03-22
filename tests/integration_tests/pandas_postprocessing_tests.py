@@ -84,37 +84,43 @@ class TestPostProcessing(SupersetTestCase):
         # single aggregate cases
         self.assertEqual(
             proc._flatten_column_after_pivot(
-                aggregates=AGGREGATES_SINGLE, column="idx_nulls",
+                aggregates=AGGREGATES_SINGLE,
+                column="idx_nulls",
             ),
             "idx_nulls",
         )
         self.assertEqual(
             proc._flatten_column_after_pivot(
-                aggregates=AGGREGATES_SINGLE, column=1234,
+                aggregates=AGGREGATES_SINGLE,
+                column=1234,
             ),
             "1234",
         )
         self.assertEqual(
             proc._flatten_column_after_pivot(
-                aggregates=AGGREGATES_SINGLE, column=Timestamp("2020-09-29T00:00:00"),
+                aggregates=AGGREGATES_SINGLE,
+                column=Timestamp("2020-09-29T00:00:00"),
             ),
             "2020-09-29 00:00:00",
         )
         self.assertEqual(
             proc._flatten_column_after_pivot(
-                aggregates=AGGREGATES_SINGLE, column="idx_nulls",
+                aggregates=AGGREGATES_SINGLE,
+                column="idx_nulls",
             ),
             "idx_nulls",
         )
         self.assertEqual(
             proc._flatten_column_after_pivot(
-                aggregates=AGGREGATES_SINGLE, column=("idx_nulls", "col1"),
+                aggregates=AGGREGATES_SINGLE,
+                column=("idx_nulls", "col1"),
             ),
             "col1",
         )
         self.assertEqual(
             proc._flatten_column_after_pivot(
-                aggregates=AGGREGATES_SINGLE, column=("idx_nulls", "col1", 1234),
+                aggregates=AGGREGATES_SINGLE,
+                column=("idx_nulls", "col1", 1234),
             ),
             "col1, 1234",
         )
@@ -122,7 +128,8 @@ class TestPostProcessing(SupersetTestCase):
         # Multiple aggregate cases
         self.assertEqual(
             proc._flatten_column_after_pivot(
-                aggregates=AGGREGATES_MULTIPLE, column=("idx_nulls", "asc_idx", "col1"),
+                aggregates=AGGREGATES_MULTIPLE,
+                column=("idx_nulls", "asc_idx", "col1"),
             ),
             "idx_nulls, asc_idx, col1",
         )
@@ -138,9 +145,14 @@ class TestPostProcessing(SupersetTestCase):
         """
         Make sure pivot without columns returns correct DataFrame
         """
-        df = proc.pivot(df=categories_df, index=["name"], aggregates=AGGREGATES_SINGLE,)
+        df = proc.pivot(
+            df=categories_df,
+            index=["name"],
+            aggregates=AGGREGATES_SINGLE,
+        )
         self.assertListEqual(
-            df.columns.tolist(), ["name", "idx_nulls"],
+            df.columns.tolist(),
+            ["name", "idx_nulls"],
         )
         self.assertEqual(len(df), 101)
         self.assertEqual(df.sum()[1], 1050)
@@ -156,7 +168,8 @@ class TestPostProcessing(SupersetTestCase):
             aggregates=AGGREGATES_SINGLE,
         )
         self.assertListEqual(
-            df.columns.tolist(), ["name", "cat0", "cat1", "cat2"],
+            df.columns.tolist(),
+            ["name", "cat0", "cat1", "cat2"],
         )
         self.assertEqual(len(df), 101)
         self.assertEqual(df.sum()[1], 315)
@@ -168,7 +181,8 @@ class TestPostProcessing(SupersetTestCase):
             aggregates=AGGREGATES_SINGLE,
         )
         self.assertListEqual(
-            df.columns.tolist(), ["dept", "cat0", "cat1", "cat2"],
+            df.columns.tolist(),
+            ["dept", "cat0", "cat1", "cat2"],
         )
         self.assertEqual(len(df), 5)
 
@@ -424,19 +438,31 @@ class TestPostProcessing(SupersetTestCase):
 
     def test_cum(self):
         # create new column (cumsum)
-        post_df = proc.cum(df=timeseries_df, columns={"y": "y2"}, operator="sum",)
+        post_df = proc.cum(
+            df=timeseries_df,
+            columns={"y": "y2"},
+            operator="sum",
+        )
         self.assertListEqual(post_df.columns.tolist(), ["label", "y", "y2"])
         self.assertListEqual(series_to_list(post_df["label"]), ["x", "y", "z", "q"])
         self.assertListEqual(series_to_list(post_df["y"]), [1.0, 2.0, 3.0, 4.0])
         self.assertListEqual(series_to_list(post_df["y2"]), [1.0, 3.0, 6.0, 10.0])
 
         # overwrite column (cumprod)
-        post_df = proc.cum(df=timeseries_df, columns={"y": "y"}, operator="prod",)
+        post_df = proc.cum(
+            df=timeseries_df,
+            columns={"y": "y"},
+            operator="prod",
+        )
         self.assertListEqual(post_df.columns.tolist(), ["label", "y"])
         self.assertListEqual(series_to_list(post_df["y"]), [1.0, 2.0, 6.0, 24.0])
 
         # overwrite column (cummin)
-        post_df = proc.cum(df=timeseries_df, columns={"y": "y"}, operator="min",)
+        post_df = proc.cum(
+            df=timeseries_df,
+            columns={"y": "y"},
+            operator="min",
+        )
         self.assertListEqual(post_df.columns.tolist(), ["label", "y"])
         self.assertListEqual(series_to_list(post_df["y"]), [1.0, 1.0, 1.0, 1.0])
 
@@ -483,7 +509,8 @@ class TestPostProcessing(SupersetTestCase):
             sorted(["city", "geohash", "latitude", "longitude"]),
         )
         self.assertListEqual(
-            series_to_list(post_df["geohash"]), series_to_list(lonlat_df["geohash"]),
+            series_to_list(post_df["geohash"]),
+            series_to_list(lonlat_df["geohash"]),
         )
 
     def test_geodetic_parse(self):
@@ -504,10 +531,12 @@ class TestPostProcessing(SupersetTestCase):
             series_to_list(lonlat_df["longitude"]),
         )
         self.assertListEqual(
-            series_to_list(post_df["latitude"]), series_to_list(lonlat_df["latitude"]),
+            series_to_list(post_df["latitude"]),
+            series_to_list(lonlat_df["latitude"]),
         )
         self.assertListEqual(
-            series_to_list(post_df["altitude"]), series_to_list(lonlat_df["altitude"]),
+            series_to_list(post_df["altitude"]),
+            series_to_list(lonlat_df["altitude"]),
         )
 
         # parse geodetic string into lon/lat
@@ -526,7 +555,8 @@ class TestPostProcessing(SupersetTestCase):
             series_to_list(lonlat_df["longitude"]),
         )
         self.assertListEqual(
-            series_to_list(post_df["latitude"]), series_to_list(lonlat_df["latitude"]),
+            series_to_list(post_df["latitude"]),
+            series_to_list(lonlat_df["latitude"]),
         )
 
     def test_contribution(self):
@@ -548,7 +578,8 @@ class TestPostProcessing(SupersetTestCase):
 
         # cell contribution across row
         processed_df = proc.contribution(
-            df, orientation=PostProcessingContributionOrientation.ROW,
+            df,
+            orientation=PostProcessingContributionOrientation.ROW,
         )
         self.assertListEqual(processed_df.columns.tolist(), [DTTM_ALIAS, "a", "b"])
         self.assertListEqual(processed_df["a"].tolist(), [0.5, 0.25])

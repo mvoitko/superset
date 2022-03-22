@@ -174,9 +174,11 @@ def delete_all_inserted_objects() -> None:
 
 def delete_all_inserted_dashboards():
     try:
-        dashboards_to_delete: List[Dashboard] = session.query(Dashboard).filter(
-            Dashboard.id.in_(inserted_dashboards_ids)
-        ).all()
+        dashboards_to_delete: List[Dashboard] = (
+            session.query(Dashboard)
+            .filter(Dashboard.id.in_(inserted_dashboards_ids))
+            .all()
+        )
         for dashboard in dashboards_to_delete:
             try:
                 delete_dashboard(dashboard, False)
@@ -221,9 +223,9 @@ def delete_dashboard_slices_associations(dashboard: Dashboard) -> None:
 
 def delete_all_inserted_slices():
     try:
-        slices_to_delete: List[Slice] = session.query(Slice).filter(
-            Slice.id.in_(inserted_slices_ids)
-        ).all()
+        slices_to_delete: List[Slice] = (
+            session.query(Slice).filter(Slice.id.in_(inserted_slices_ids)).all()
+        )
         for slice in slices_to_delete:
             try:
                 delete_slice(slice, False)
@@ -252,9 +254,11 @@ def delete_slice_users_associations(slice_: Slice) -> None:
 
 def delete_all_inserted_tables():
     try:
-        tables_to_delete: List[SqlaTable] = session.query(SqlaTable).filter(
-            SqlaTable.id.in_(inserted_sqltables_ids)
-        ).all()
+        tables_to_delete: List[SqlaTable] = (
+            session.query(SqlaTable)
+            .filter(SqlaTable.id.in_(inserted_sqltables_ids))
+            .all()
+        )
         for table in tables_to_delete:
             try:
                 delete_sqltable(table, False)
@@ -285,9 +289,11 @@ def delete_table_users_associations(table: SqlaTable) -> None:
 
 def delete_all_inserted_dbs():
     try:
-        dbs_to_delete: List[Database] = session.query(Database).filter(
-            Database.id.in_(inserted_databases_ids)
-        ).all()
+        dbs_to_delete: List[Database] = (
+            session.query(Database)
+            .filter(Database.id.in_(inserted_databases_ids))
+            .all()
+        )
         for db in dbs_to_delete:
             try:
                 delete_database(db, False)

@@ -203,7 +203,10 @@ class DruidMetricInlineView(CompactCRUDMixin, EnsureEnabledMixin, SupersetModelV
 
 
 class DruidClusterModelView(
-    EnsureEnabledMixin, SupersetModelView, DeleteMixin, YamlExportMixin,
+    EnsureEnabledMixin,
+    SupersetModelView,
+    DeleteMixin,
+    YamlExportMixin,
 ):
     datamodel = SQLAInterface(models.DruidCluster)
     include_route_methods = RouteMethod.CRUD_SET
@@ -267,7 +270,10 @@ class DruidClusterModelView(
 
 
 class DruidDatasourceModelView(
-    EnsureEnabledMixin, DatasourceModelView, DeleteMixin, YamlExportMixin,
+    EnsureEnabledMixin,
+    DatasourceModelView,
+    DeleteMixin,
+    YamlExportMixin,
 ):
     datamodel = SQLAInterface(models.DruidDatasource)
     include_route_methods = RouteMethod.CRUD_SET

@@ -187,7 +187,11 @@ def cancel_github_workflows(
         if branch and ":" in branch:
             [user, branch] = branch.split(":", 2)
         runs = get_runs(
-            repo, branch=branch, user=user, statuses=statuses, events=events,
+            repo,
+            branch=branch,
+            user=user,
+            statuses=statuses,
+            events=events,
         )
 
     # sort old jobs to the front, so to cancel older jobs first

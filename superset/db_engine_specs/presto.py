@@ -21,7 +21,6 @@ import time
 from collections import defaultdict, deque
 from contextlib import closing
 from datetime import datetime
-from distutils.version import StrictVersion
 from typing import (
     Any,
     Callable,
@@ -39,6 +38,7 @@ from urllib import parse
 
 import pandas as pd
 import simplejson as json
+from distutils.version import StrictVersion
 from flask import current_app
 from flask_babel import gettext as __, lazy_gettext as _
 from sqlalchemy import Column, literal_column, types
@@ -227,7 +227,10 @@ class PrestoEngineSpec(BaseEngineSpec):  # pylint: disable=too-many-public-metho
 
     @classmethod
     def update_impersonation_config(
-        cls, connect_args: Dict[str, Any], uri: str, username: Optional[str],
+        cls,
+        connect_args: Dict[str, Any],
+        uri: str,
+        username: Optional[str],
     ) -> None:
         """
         Update a configuration dictionary

@@ -267,16 +267,20 @@ class TestDateParser(SupersetTestCase):
         self.assertEqual(parse_human_timedelta("-1 year"), timedelta(-365))
         self.assertEqual(parse_human_timedelta(None), timedelta(0))
         self.assertEqual(
-            parse_human_timedelta("1 month", datetime(2019, 4, 1)), timedelta(30),
+            parse_human_timedelta("1 month", datetime(2019, 4, 1)),
+            timedelta(30),
         )
         self.assertEqual(
-            parse_human_timedelta("1 month", datetime(2019, 5, 1)), timedelta(31),
+            parse_human_timedelta("1 month", datetime(2019, 5, 1)),
+            timedelta(31),
         )
         self.assertEqual(
-            parse_human_timedelta("1 month", datetime(2019, 2, 1)), timedelta(28),
+            parse_human_timedelta("1 month", datetime(2019, 2, 1)),
+            timedelta(28),
         )
         self.assertEqual(
-            parse_human_timedelta("-1 month", datetime(2019, 2, 1)), timedelta(-31),
+            parse_human_timedelta("-1 month", datetime(2019, 2, 1)),
+            timedelta(-31),
         )
 
     @patch("superset.utils.date_parser.datetime")

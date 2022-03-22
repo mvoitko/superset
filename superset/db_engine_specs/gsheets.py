@@ -63,7 +63,10 @@ class GSheetsEngineSpec(SqliteEngineSpec):
 
     @classmethod
     def extra_table_metadata(
-        cls, database: "Database", table_name: str, schema_name: str,
+        cls,
+        database: "Database",
+        table_name: str,
+        schema_name: str,
     ) -> Dict[str, Any]:
         engine = cls.get_engine(database, schema=schema_name)
         with closing(engine.raw_connection()) as conn:

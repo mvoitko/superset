@@ -145,7 +145,8 @@ def validate_column_args(*argnames: str) -> Callable[..., Any]:
 
 
 def _get_aggregate_funcs(
-    df: DataFrame, aggregates: Dict[str, Dict[str, Any]],
+    df: DataFrame,
+    aggregates: Dict[str, Dict[str, Any]],
 ) -> Dict[str, NamedAgg]:
     """
     Converts a set of aggregate config objects into functions that pandas can use as
@@ -167,7 +168,10 @@ def _get_aggregate_funcs(
             )
         if "operator" not in agg_obj:
             raise QueryObjectValidationError(
-                _("Operator undefined for aggregator: %(name)s", name=name,)
+                _(
+                    "Operator undefined for aggregator: %(name)s",
+                    name=name,
+                )
             )
         operator = agg_obj["operator"]
         if callable(operator):
@@ -176,7 +180,10 @@ def _get_aggregate_funcs(
             func = NUMPY_FUNCTIONS.get(operator)
             if not func:
                 raise QueryObjectValidationError(
-                    _("Invalid numpy function: %(operator)s", operator=operator,)
+                    _(
+                        "Invalid numpy function: %(operator)s",
+                        operator=operator,
+                    )
                 )
             options = agg_obj.get("options", {})
             aggfunc = partial(func, **options)
@@ -425,7 +432,11 @@ def select(
 
 
 @validate_column_args("columns")
-def diff(df: DataFrame, columns: Dict[str, str], periods: int = 1,) -> DataFrame:
+def diff(
+    df: DataFrame,
+    columns: Dict[str, str],
+    periods: int = 1,
+) -> DataFrame:
     """
     Calculate row-by-row difference for select columns.
 
@@ -494,7 +505,10 @@ def geohash_decode(
 
 
 def geohash_encode(
-    df: DataFrame, geohash: str, longitude: str, latitude: str,
+    df: DataFrame,
+    geohash: str,
+    longitude: str,
+    latitude: str,
 ) -> DataFrame:
     """
     Encode longitude and latitude into geohash
@@ -509,7 +523,8 @@ def geohash_encode(
         encode_df = df[[latitude, longitude]]
         encode_df.columns = ["latitude", "longitude"]
         encode_df["geohash"] = encode_df.apply(
-            lambda row: geohash_lib.encode(row["latitude"], row["longitude"]), axis=1,
+            lambda row: geohash_lib.encode(row["latitude"], row["longitude"]),
+            axis=1,
         )
         return _append_columns(df, encode_df, {"geohash": geohash})
     except ValueError:
@@ -695,7 +710,10 @@ def prophet(  # pylint: disable=too-many-arguments
         raise QueryObjectValidationError(_("Time grain missing"))
     if time_grain not in PROPHET_TIME_GRAIN_MAP:
         raise QueryObjectValidationError(
-            _("Unsupported time grain: %(time_grain)s", time_grain=time_grain,)
+            _(
+                "Unsupported time grain: %(time_grain)s",
+                time_grain=time_grain,
+            )
         )
     freq = PROPHET_TIME_GRAIN_MAP[time_grain]
     # check type at runtime due to marhsmallow schema not being able to handle

@@ -910,7 +910,8 @@ class TestCore(SupersetTestCase):
         snowflake_database = get_or_create_db("snowflake", "snowflake://")
 
         table = SqlaTable(
-            table_name="test_columns_with_alias_quotes", database=snowflake_database,
+            table_name="test_columns_with_alias_quotes",
+            database=snowflake_database,
         )
 
         col = table.make_sqla_column_compatible(column("foo"))
@@ -931,7 +932,8 @@ class TestCore(SupersetTestCase):
         postgres_database = get_or_create_db("postgresql", "postgresql://")
 
         table = SqlaTable(
-            table_name="test_columns_with_no_quotes", database=postgres_database,
+            table_name="test_columns_with_no_quotes",
+            database=postgres_database,
         )
 
         col = table.make_sqla_column_compatible(column("foo"))
@@ -978,7 +980,8 @@ class TestCore(SupersetTestCase):
         }
         self.login(username="admin")
         rv = self.client.post(
-            "/superset/explore_json/", data={"form_data": json.dumps(form_data)},
+            "/superset/explore_json/",
+            data={"form_data": json.dumps(form_data)},
         )
         data = json.loads(rv.data.decode("utf-8"))
 
@@ -1054,7 +1057,8 @@ class TestCore(SupersetTestCase):
 
         self.login(username="admin")
         rv = self.client.post(
-            "/superset/explore_json/", data={"form_data": json.dumps(form_data)},
+            "/superset/explore_json/",
+            data={"form_data": json.dumps(form_data)},
         )
         data = json.loads(rv.data.decode("utf-8"))
 
@@ -1102,7 +1106,8 @@ class TestCore(SupersetTestCase):
         async_query_manager.init_app(app)
         self.login(username="admin")
         rv = self.client.post(
-            "/superset/explore_json/", data={"form_data": json.dumps(form_data)},
+            "/superset/explore_json/",
+            data={"form_data": json.dumps(form_data)},
         )
         data = json.loads(rv.data.decode("utf-8"))
         keys = list(data.keys())

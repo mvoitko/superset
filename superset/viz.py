@@ -526,7 +526,10 @@ class BaseViz:
                     for col in (query_obj.get("columns") or [])
                     + (query_obj.get("groupby") or [])
                     + utils.get_column_names_from_metrics(
-                        cast(List[Metric], query_obj.get("metrics") or [],)
+                        cast(
+                            List[Metric],
+                            query_obj.get("metrics") or [],
+                        )
                     )
                     if col not in self.datasource.column_names
                 ]
@@ -1011,7 +1014,7 @@ class CalHeatmapViz(BaseViz):
                 v = obj[DTTM_ALIAS]
                 if hasattr(v, "value"):
                     v = v.value
-                values[str(v / 10 ** 9)] = obj.get(metric)
+                values[str(v / 10**9)] = obj.get(metric)
             data[metric] = values
 
         try:
@@ -1872,7 +1875,12 @@ class SankeyViz(BaseViz):
         source, target = self.groupby
         (value,) = self.metric_labels
         df.rename(
-            columns={source: "source", target: "target", value: "value",}, inplace=True,
+            columns={
+                source: "source",
+                target: "target",
+                value: "value",
+            },
+            inplace=True,
         )
         df["source"] = df["source"].astype(str)
         df["target"] = df["target"].astype(str)

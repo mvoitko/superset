@@ -39,7 +39,8 @@ CHART_DATA_URI = "api/v1/chart/data"
 
 
 @mock.patch.dict(
-    "superset.extensions.feature_flag_manager._feature_flags", DASHBOARD_RBAC=True,
+    "superset.extensions.feature_flag_manager._feature_flags",
+    DASHBOARD_RBAC=True,
 )
 class TestDashboardRoleBasedSecurity(BaseTestDashboardSecurity):
     def test_get_dashboard_view__admin_can_access(self):
@@ -275,7 +276,10 @@ class TestDashboardRoleBasedSecurity(BaseTestDashboardSecurity):
 
         # assert
         self.assert_dashboards_list_view_response(
-            response, len(published_dashboards), published_dashboards, draft_dashboards,
+            response,
+            len(published_dashboards),
+            published_dashboards,
+            draft_dashboards,
         )
 
         # post
@@ -335,7 +339,10 @@ class TestDashboardRoleBasedSecurity(BaseTestDashboardSecurity):
 
         # assert
         self.assert_dashboards_list_view_response(
-            response, len(published_dashboards), published_dashboards, draft_dashboards,
+            response,
+            len(published_dashboards),
+            published_dashboards,
+            draft_dashboards,
         )
 
         # post
@@ -397,7 +404,10 @@ class TestDashboardRoleBasedSecurity(BaseTestDashboardSecurity):
 
         # assert
         self.assert_dashboards_api_response(
-            response, len(published_dashboards), published_dashboards, draft_dashboards,
+            response,
+            len(published_dashboards),
+            published_dashboards,
+            draft_dashboards,
         )
 
         # post
@@ -441,7 +451,10 @@ class TestDashboardRoleBasedSecurity(BaseTestDashboardSecurity):
 
         # assert
         self.assert_dashboards_api_response(
-            response, len(published_dashboards), published_dashboards, draft_dashboards,
+            response,
+            len(published_dashboards),
+            published_dashboards,
+            draft_dashboards,
         )
 
         # post
